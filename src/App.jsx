@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import { playWhoosh } from './utils/sounds';
 import './App.css';
 import Hero from './components/Hero';
 import Home from './components/Home';
@@ -13,8 +15,17 @@ import BackgroundSwitcher from './components/BackgroundSwitcher';
 
 function RouteHandler() {
   const { pathname } = useLocation();
+  const isFirstRender = useRef(true);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // Play whoosh sound on route change (except initial load)
+    if (!isFirstRender.current) {
+      playWhoosh();
+    } else {
+      isFirstRender.current = false;
+    }
 
     // Set base theme based on route
     if (pathname === '/experience') document.body.className = 'theme-experience';
@@ -65,6 +76,21 @@ function Nav() {
   );
 }
 
+function AnimatedRoutes() {
+  const location = useLocation();
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Home />} />
+        <Route path="/experience" element={<Experience />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/skills" element={<Skills />} />
+        <Route path="/education" element={<Education />} />
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
 function App() {
   useEffect(() => {
     const handleScroll = () => {
@@ -100,13 +126,7 @@ function App() {
         <Nav />
 
         <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/experience" element={<Experience />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/skills" element={<Skills />} />
-            <Route path="/education" element={<Education />} />
-          </Routes>
+          <AnimatedRoutes />
         </main>
         
         <Contact />

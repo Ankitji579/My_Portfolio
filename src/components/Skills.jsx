@@ -1,5 +1,6 @@
 import React from 'react';
 import './Skills.css';
+import PageTransition from './PageTransition';
 
 const skillCategories = [
   {
@@ -26,7 +27,7 @@ const skillCategories = [
 
 const Skills = () => {
   return (
-    <section id="skills" className="section container page-transition">
+    <PageTransition className="section container page-transition" id="skills">
       <h2 className="section-title">
         Technical <span className="text-gradient">Skills</span>
       </h2>
@@ -45,7 +46,7 @@ const Skills = () => {
           </div>
         ))}
       </div>
-    </section>
+    </PageTransition>
   );
 };
 

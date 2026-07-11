@@ -1,9 +1,10 @@
 import React from 'react';
 import './Education.css';
+import PageTransition from './PageTransition';
 
 const Education = () => {
   return (
-    <section id="education" className="section container page-transition">
+    <PageTransition className="section container page-transition" id="education">
       <h2 className="section-title">
         <span className="text-gradient">Education</span> & Activities
       </h2>
@@ -47,7 +48,7 @@ const Education = () => {
           </ul>
         </div>
       </div>
-    </section>
+    </PageTransition>
   );
 };
 

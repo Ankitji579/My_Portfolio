@@ -1,9 +1,10 @@
 import React from 'react';
 import './Experience.css';
+import PageTransition from './PageTransition';
 
 const Experience = () => {
   return (
-    <section id="experience" className="section container page-transition">
+    <PageTransition className="section container page-transition" id="experience">
       <h2 className="section-title">
         Work <span className="text-gradient">Experience</span>
       </h2>
@@ -29,7 +30,7 @@ const Experience = () => {
           </div>
         </div>
       </div>
-    </section>
+    </PageTransition>
   );
 };
 

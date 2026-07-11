@@ -1,42 +1,51 @@
-import React, { useEffect, useRef, useState } from 'react';
-import './ScrollReveal.css';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 
-const ScrollReveal = ({ children }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1
     }
+  }
+};
 
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-    };
-  }, []);
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: 'spring',
+      damping: 20,
+      stiffness: 100
+    }
+  }
+};
+
+const ScrollReveal = ({ children, className = "" }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -100px 0px" });
+
+  // If the children are not an array, we just wrap it directly
+  const childrenArray = React.Children.toArray(children);
 
   return (
-    <div
+    <motion.div
       ref={ref}
-      className={`scroll-reveal ${isVisible ? 'is-visible' : ''}`}
+      variants={containerVariants}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      className={className}
     >
-      {children}
-    </div>
+      {childrenArray.map((child, index) => (
+        <motion.div key={index} variants={itemVariants}>
+          {child}
+        </motion.div>
+      ))}
+    </motion.div>
   );
 };
 
