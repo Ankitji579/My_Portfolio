@@ -11,10 +11,38 @@ import Contact from './components/Contact';
 import CustomCursor from './components/CustomCursor';
 import BackgroundSwitcher from './components/BackgroundSwitcher';
 
-function ScrollToTop() {
+function RouteHandler() {
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // Set base theme based on route
+    if (pathname === '/experience') document.body.className = 'theme-experience';
+    else if (pathname === '/projects') document.body.className = 'theme-projects';
+    else if (pathname === '/skills') document.body.className = 'theme-skills';
+    else if (pathname === '/education') document.body.className = 'theme-education';
+    else document.body.className = 'theme-hero';
+
+    let observer;
+    const timeoutId = setTimeout(() => {
+      const sections = document.querySelectorAll('.section');
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            if (id) {
+              document.body.className = `theme-${id}`;
+            }
+          }
+        });
+      }, { threshold: 0.4 });
+      sections.forEach(section => observer.observe(section));
+    }, 100);
+
+    return () => {
+      clearTimeout(timeoutId);
+      if (observer) observer.disconnect();
+    };
   }, [pathname]);
   return null;
 }
@@ -55,31 +83,15 @@ function App() {
     };
     
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    // Theme observer for sections
-    const sections = document.querySelectorAll('.section');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          if (id) {
-            document.body.className = `theme-${id}`;
-          }
-        }
-      });
-    }, { threshold: 0.4 }); // Trigger when 40% visible
-
-    sections.forEach(section => observer.observe(section));
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      sections.forEach(section => observer.unobserve(section));
     };
   }, []);
 
   return (
     <Router>
-      <ScrollToTop />
+      <RouteHandler />
       <div className="app-container">
         <BackgroundSwitcher />
         <div className="scroll-progress-bar"></div>
