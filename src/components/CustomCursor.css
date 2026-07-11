@@ -29,7 +29,7 @@
 
 /* Hovering states */
 .cursor-dot.hovering {
-  opacity: 0; /* Hide dot when hovering to let ring dominate */
+  opacity: 0; 
 }
 
 .cursor-ring.hovering {
