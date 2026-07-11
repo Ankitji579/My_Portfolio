@@ -24,17 +24,24 @@ const Hero = () => {
   const allSkills = ['C++', 'Java', 'Playwright', 'React', 'JavaScript', 'Node.js', 'SQL', 'Git', 'Linux', 'Python', 'Docker', 'AWS'];
   const [skillIndex, setSkillIndex] = useState(0);
   const [fade, setFade] = useState(true);
+  const [orbitRPM, setOrbitRPM] = useState(15); // 15 RPM = 4s orbit
 
   useEffect(() => {
+    if (orbitRPM == 0) return; // Pause completely if 0 RPM
+    
+    const orbitDurationMs = (60 / orbitRPM) * 1000;
+    const intervalTime = Math.max(orbitDurationMs, 500); // Cap swap interval to prevent seizure/crash
+    
     const interval = setInterval(() => {
       setFade(false);
       setTimeout(() => {
         setSkillIndex((prev) => (prev + 4) % allSkills.length);
         setFade(true);
-      }, 500);
-    }, 8000);
+      }, 200); // Faster fade for fast RPMs
+    }, intervalTime);
+    
     return () => clearInterval(interval);
-  }, []);
+  }, [orbitRPM, allSkills.length]);
 
   const currentSkills = [
     allSkills[skillIndex],
@@ -87,7 +94,13 @@ const Hero = () => {
         </div>
       </div>
       
-      <div className="hero-visual animate-fade-in" style={{animationDelay: '0.2s'}}>
+      <div className="hero-visual animate-fade-in" style={{
+        animationDelay: '0.2s', 
+        '--orbit-duration': orbitRPM == 0 ? '99999s' : `${60 / orbitRPM}s`,
+        '--orbit-play-state': orbitRPM == 0 ? 'paused' : 'running',
+        flexDirection: 'column',
+        gap: '4rem'
+      }}>
         <div 
           className="profile-wrapper"
           ref={wrapperRef}
@@ -101,10 +114,25 @@ const Hero = () => {
         >
           <img src="/profile-pic.jpg" alt="Ankit Vashisth" className="profile-img" />
           <div className="profile-decoration"></div>
-          <div className="tech-bubble bubble-1" style={{ opacity: fade ? 1 : 0, transition: 'opacity 0.5s ease' }}>{currentSkills[0]}</div>
-          <div className="tech-bubble bubble-2" style={{ opacity: fade ? 1 : 0, transition: 'opacity 0.5s ease' }}>{currentSkills[1]}</div>
-          <div className="tech-bubble bubble-3" style={{ opacity: fade ? 1 : 0, transition: 'opacity 0.5s ease' }}>{currentSkills[2]}</div>
-          <div className="tech-bubble bubble-4" style={{ opacity: fade ? 1 : 0, transition: 'opacity 0.5s ease' }}>{currentSkills[3]}</div>
+          <div className="tech-bubble bubble-1" style={{ opacity: fade ? 1 : 0, transition: 'opacity 0.2s ease' }}>{currentSkills[0]}</div>
+          <div className="tech-bubble bubble-2" style={{ opacity: fade ? 1 : 0, transition: 'opacity 0.2s ease' }}>{currentSkills[1]}</div>
+          <div className="tech-bubble bubble-3" style={{ opacity: fade ? 1 : 0, transition: 'opacity 0.2s ease' }}>{currentSkills[2]}</div>
+          <div className="tech-bubble bubble-4" style={{ opacity: fade ? 1 : 0, transition: 'opacity 0.2s ease' }}>{currentSkills[3]}</div>
+        </div>
+        
+        {/* Breathtaking Speed Slider */}
+        <div className="speed-control-container">
+          <div className="speed-label">
+            <span>Orbit Speed</span>
+            <span className="speed-value">{orbitRPM} RPM</span>
+          </div>
+          <input 
+            type="range" 
+            min="0" max="100" step="1" 
+            value={orbitRPM} 
+            onChange={(e) => setOrbitRPM(e.target.value)} 
+            className="speed-slider"
+          />
         </div>
       </div>
     </section>

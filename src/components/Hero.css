@@ -275,10 +275,10 @@
   white-space: nowrap;
 }
 
-.bubble-1 { --bubble-color: 59, 130, 246; animation: orbit1 8s linear infinite, bubblePulse 2s ease-in-out infinite alternate; color: rgb(var(--bubble-color)); } 
-.bubble-2 { --bubble-color: 239, 68, 68; animation: orbit2 8s linear infinite, bubblePulse 2.5s ease-in-out infinite alternate; color: rgb(var(--bubble-color)); } 
-.bubble-3 { --bubble-color: 16, 185, 129; animation: orbit3 8s linear infinite, bubblePulse 3s ease-in-out infinite alternate; color: rgb(var(--bubble-color)); } 
-.bubble-4 { --bubble-color: 14, 165, 233; animation: orbit4 8s linear infinite, bubblePulse 2.2s ease-in-out infinite alternate; color: rgb(var(--bubble-color)); } 
+.bubble-1 { --bubble-color: 59, 130, 246; animation: orbit1 var(--orbit-duration, 8s) linear infinite, bubblePulse 2s ease-in-out infinite alternate; animation-play-state: var(--orbit-play-state, running); color: rgb(var(--bubble-color)); } 
+.bubble-2 { --bubble-color: 239, 68, 68; animation: orbit2 var(--orbit-duration, 8s) linear infinite, bubblePulse 2.5s ease-in-out infinite alternate; animation-play-state: var(--orbit-play-state, running); color: rgb(var(--bubble-color)); } 
+.bubble-3 { --bubble-color: 16, 185, 129; animation: orbit3 var(--orbit-duration, 8s) linear infinite, bubblePulse 3s ease-in-out infinite alternate; animation-play-state: var(--orbit-play-state, running); color: rgb(var(--bubble-color)); } 
+.bubble-4 { --bubble-color: 14, 165, 233; animation: orbit4 var(--orbit-duration, 8s) linear infinite, bubblePulse 2.2s ease-in-out infinite alternate; animation-play-state: var(--orbit-play-state, running); color: rgb(var(--bubble-color)); } 
 
 @keyframes bubblePulse {
   0% { 
@@ -307,4 +307,94 @@
 @keyframes orbit4 {
   0% { transform: rotate(270deg) translateX(210px) rotate(-270deg) translateZ(60px); }
   100% { transform: rotate(630deg) translateX(210px) rotate(-630deg) translateZ(60px); }
+}
+
+/* Breathtaking Speed Slider */
+.speed-control-container {
+  position: relative;
+  width: 280px;
+  background: rgba(17, 24, 39, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(139, 92, 246, 0.1);
+  z-index: 10;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.speed-control-container:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 0 10px 40px rgba(139, 92, 246, 0.2), inset 0 0 20px rgba(6, 182, 212, 0.2);
+  transform: translateY(-5px) scale(1.05);
+}
+
+.speed-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.speed-value {
+  color: #fff;
+  text-shadow: 0 0 10px var(--accent-secondary-glow), 0 0 20px var(--accent-secondary-glow);
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Custom range slider styling */
+.speed-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3));
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.speed-slider:hover {
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.5), rgba(6, 182, 212, 0.5));
+}
+
+.speed-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  cursor: pointer;
+  box-shadow: 0 0 15px var(--accent-primary-glow), 0 0 5px rgba(255, 255, 255, 0.8);
+  border: 2px solid #fff;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
+}
+
+.speed-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.4);
+  box-shadow: 0 0 25px var(--accent-primary-glow), 0 0 10px rgba(255, 255, 255, 1);
+}
+
+.speed-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  cursor: pointer;
+  box-shadow: 0 0 15px var(--accent-primary-glow), 0 0 5px rgba(255, 255, 255, 0.8);
+  border: 2px solid #fff;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
+}
+
+.speed-slider::-moz-range-thumb:hover {
+  transform: scale(1.4);
+  box-shadow: 0 0 25px var(--accent-primary-glow), 0 0 10px rgba(255, 255, 255, 1);
 }
