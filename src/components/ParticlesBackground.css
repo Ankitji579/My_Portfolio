@@ -1,0 +1,24 @@
+#tsparticles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2; /* Keep behind the glows and content */
+  pointer-events: auto; /* So mouse hover repulse works */
+}
+
+/* Let's keep the glows but tone them down slightly so particles pop out */
+.ambient-glow {
+  opacity: 0.3 !important;
+}
+
+.page-transition {
+  position: relative;
+  z-index: 1;
+  pointer-events: none; /* Let pointer events fall through to particles on empty spaces */
+}
+
+.page-transition > * {
+  pointer-events: auto; /* Re-enable pointer events for actual content */
+}

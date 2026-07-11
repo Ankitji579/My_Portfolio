@@ -1,0 +1,128 @@
+.app-container {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Background Ambient Glows */
+.ambient-glow {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.5;
+  animation: pulse 8s infinite alternate;
+  transition: filter 1s ease-in-out, transform 0.1s linear;
+}
+
+body.theme-hero .ambient-glow { filter: blur(120px) hue-rotate(0deg); }
+body.theme-experience .ambient-glow { filter: blur(120px) hue-rotate(120deg); }
+body.theme-projects .ambient-glow { filter: blur(120px) hue-rotate(240deg); }
+body.theme-skills .ambient-glow { filter: blur(120px) hue-rotate(60deg); }
+body.theme-education .ambient-glow { filter: blur(120px) hue-rotate(300deg); }
+body.theme-contact .ambient-glow { filter: blur(120px) hue-rotate(180deg); }
+
+.glow-1 {
+  top: -10%;
+  left: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, var(--accent-primary-glow) 0%, transparent 70%);
+}
+
+.glow-2 {
+  bottom: -10%;
+  right: -10%;
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(circle, var(--accent-secondary-glow) 0%, transparent 70%);
+  animation-delay: -4s;
+}
+
+/* Base App Layout */
+main {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  padding-top: 5rem;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 1.5rem 0;
+  z-index: 100;
+  background: rgba(3, 7, 18, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  position: relative;
+  transition: color var(--transition-fast);
+}
+
+.nav-links a:hover, .nav-links a.active {
+  color: var(--text-primary);
+}
+
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--accent-primary-glow);
+}
+
+.page-transition {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: var(--scroll-progress, 0%);
+  background: var(--gradient-text);
+  z-index: 1000;
+  box-shadow: 0 0 10px var(--accent-primary-glow), 0 0 20px var(--accent-tertiary);
+  transition: width 0.1s ease-out;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.85rem;
+  }
+}

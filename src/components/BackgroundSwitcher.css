@@ -1,0 +1,19 @@
+.background-switcher {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+  pointer-events: none;
+}
+
+.bg-layer.active {
+  opacity: 1;
+  pointer-events: auto; /* Allow particle interactions */
+}

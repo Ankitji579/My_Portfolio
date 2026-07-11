@@ -1,0 +1,93 @@
+.education-layout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.education-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.edu-card {
+  padding: 2rem;
+  border-left: 4px solid var(--accent-secondary);
+}
+
+.degree {
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.institution {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.edu-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.year {
+  font-size: 0.875rem;
+  color: var(--accent-primary);
+  font-weight: 600;
+}
+
+.score {
+  font-size: 0.875rem;
+  padding: 0.25rem 0.75rem;
+  background: rgba(6, 182, 212, 0.1);
+  color: var(--accent-secondary);
+  border-radius: var(--radius-full);
+  font-weight: 600;
+}
+
+.activities-panel {
+  flex: 1;
+  padding: 2.5rem;
+  height: 100%;
+}
+
+.activities-title {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.activities-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.activities-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.activities-list li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--accent-primary);
+}
+
+@media (max-width: 992px) {
+  .education-layout {
+    flex-direction: column;
+  }
+  
+  .activities-panel {
+    width: 100%;
+  }
+}
