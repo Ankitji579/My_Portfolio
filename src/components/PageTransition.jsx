@@ -13,7 +13,7 @@ const pageTransition = {
   duration: 0.6
 };
 
-const PageTransition = ({ children, className = "" }) => {
+const PageTransition = ({ children, className = "", ...props }) => {
   return (
     <motion.div
       initial="initial"
@@ -22,6 +22,7 @@ const PageTransition = ({ children, className = "" }) => {
       variants={pageVariants}
       transition={pageTransition}
       className={className}
+      {...props}
     >
       {children}
     </motion.div>
