@@ -12,6 +12,8 @@ import Education from './components/Education';
 import Contact from './components/Contact';
 import CustomCursor from './components/CustomCursor';
 import BackgroundSwitcher from './components/BackgroundSwitcher';
+import NoiseOverlay from './components/NoiseOverlay';
+import Magnetic from './components/Magnetic';
 
 function RouteHandler() {
   const { pathname } = useLocation();
@@ -63,13 +65,25 @@ function Nav() {
   return (
     <nav>
       <div className="container nav-content">
-        <Link to="/" className="nav-logo">AV.</Link>
+        <Magnetic>
+          <Link to="/" className="nav-logo">AV.</Link>
+        </Magnetic>
         <div className="nav-links">
-          <Link to="/" className={location.pathname === '/' ? 'active' : ''}>About</Link>
-          <Link to="/experience" className={location.pathname === '/experience' ? 'active' : ''}>Experience</Link>
-          <Link to="/projects" className={location.pathname === '/projects' ? 'active' : ''}>Projects</Link>
-          <Link to="/skills" className={location.pathname === '/skills' ? 'active' : ''}>Skills</Link>
-          <Link to="/education" className={location.pathname === '/education' ? 'active' : ''}>Education</Link>
+          <Magnetic>
+            <Link to="/" className={location.pathname === '/' ? 'active' : ''}>About</Link>
+          </Magnetic>
+          <Magnetic>
+            <Link to="/experience" className={location.pathname === '/experience' ? 'active' : ''}>Experience</Link>
+          </Magnetic>
+          <Magnetic>
+            <Link to="/projects" className={location.pathname === '/projects' ? 'active' : ''}>Projects</Link>
+          </Magnetic>
+          <Magnetic>
+            <Link to="/skills" className={location.pathname === '/skills' ? 'active' : ''}>Skills</Link>
+          </Magnetic>
+          <Magnetic>
+            <Link to="/education" className={location.pathname === '/education' ? 'active' : ''}>Education</Link>
+          </Magnetic>
         </div>
       </div>
     </nav>
@@ -119,6 +133,13 @@ function App() {
     <Router>
       <RouteHandler />
       <div className="app-container">
+        <NoiseOverlay />
+        <div className="grid-lines-overlay" aria-hidden="true">
+          <div className="grid-line"></div>
+          <div className="grid-line"></div>
+          <div className="grid-line"></div>
+          <div className="grid-line"></div>
+        </div>
         <BackgroundSwitcher />
         <div className="scroll-progress-bar"></div>
         <CustomCursor />

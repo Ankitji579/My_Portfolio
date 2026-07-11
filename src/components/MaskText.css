@@ -1,0 +1,16 @@
+.mask-text-container {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 0.25em;
+  column-gap: 0.25em;
+}
+
+.mask-word-wrapper {
+  overflow: hidden;
+  position: relative;
+  display: inline-flex;
+}
+
+.mask-word {
+  display: inline-block;
+}

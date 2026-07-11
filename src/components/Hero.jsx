@@ -1,7 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { ArrowRight, Download, Mail } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
-
+import Magnetic from './Magnetic';
+import MaskText from './MaskText';
 import './Hero.css';
 
 const Hero = () => {
@@ -53,45 +55,90 @@ const Hero = () => {
 
   return (
     <section id="hero" className="section hero-section container page-transition">
-      <div className="hero-content animate-fade-in">
-        <div className="hero-badge">Available for full-time roles</div>
+      <div className="hero-content">
+        <div className="hero-badge-wrapper" style={{ overflow: 'hidden' }}>
+          <motion.div 
+            className="hero-badge"
+            initial={{ y: '100%', opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+          >
+            Available for full-time roles
+          </motion.div>
+        </div>
         
         <h1 className="hero-title">
-          Hi, I'm{' '}
+          <span style={{ overflow: 'hidden', display: 'inline-block', verticalAlign: 'bottom' }}>
+            <motion.span
+              display="inline-block"
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1] }}
+            >
+              Hi, I'm&nbsp;
+            </motion.span>
+          </span>
           <span className="name-wrapper">
-            <span className="text-gradient">Ankit Vashisth</span>
+            <span style={{ overflow: 'hidden', display: 'inline-block', verticalAlign: 'bottom' }}>
+              <motion.span
+                className="text-gradient"
+                style={{ display: 'inline-block' }}
+                initial={{ y: '100%' }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1], delay: 0.15 }}
+              >
+                Ankit Vashisth
+              </motion.span>
+            </span>
             <span className="name-underline name-underline-medium"></span>
             <span className="name-underline name-underline-small"></span>
           </span>
         </h1>
         
-        <h2 className="hero-subtitle">
-          Software Engineer & QA Automation
-        </h2>
+        <MaskText 
+          phrase="Software Engineer & QA Automation" 
+          className="hero-subtitle" 
+          delay={0.3} 
+        />
         
-        <p className="hero-description">
+        <motion.p 
+          className="hero-description"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.45 }}
+        >
           Computer Science Engineering undergraduate with a strong foundation in programming, software testing, and web development. I build reliable software and robust automation frameworks.
-        </p>
+        </motion.p>
         
         <div className="hero-actions">
-          <a href="mailto:ankitvashisth21@gmail.com" className="btn btn-primary">
-            Let's Talk <ArrowRight size={18} />
-          </a>
-          <a href="https://drive.google.com/file/d/1JIdr-Q9N_BGGyu1aaH1yXf5RkfZd2Bop/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
-            Resume <Download size={18} />
-          </a>
+          <Magnetic>
+            <a href="mailto:ankitvashisth21@gmail.com" className="btn btn-primary">
+              Let's Talk <ArrowRight size={18} />
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a href="https://drive.google.com/file/d/1JIdr-Q9N_BGGyu1aaH1yXf5RkfZd2Bop/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+              Resume <Download size={18} />
+            </a>
+          </Magnetic>
         </div>
         
         <div className="hero-socials">
-          <a href="https://linkedin.com/in/ankit-vashisth-5a570824b/" target="_blank" rel="noopener noreferrer" className="social-link">
-            <FaLinkedin size={24} />
-          </a>
-          <a href="https://github.com/Ankitji579" target="_blank" rel="noopener noreferrer" className="social-link">
-            <FaGithub size={24} />
-          </a>
-          <a href="mailto:ankitvashisth21@gmail.com" className="social-link">
-            <Mail size={24} />
-          </a>
+          <Magnetic>
+            <a href="https://linkedin.com/in/ankit-vashisth-5a570824b/" target="_blank" rel="noopener noreferrer" className="social-link">
+              <FaLinkedin size={24} />
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a href="https://github.com/Ankitji579" target="_blank" rel="noopener noreferrer" className="social-link">
+              <FaGithub size={24} />
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a href="mailto:ankitvashisth21@gmail.com" className="social-link">
+              <Mail size={24} />
+            </a>
+          </Magnetic>
         </div>
       </div>
       
